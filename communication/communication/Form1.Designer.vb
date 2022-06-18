@@ -40,14 +40,14 @@ Partial Class Form1
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Txtvalue = New System.Windows.Forms.TextBox()
+        Me.lblStatus = New System.Windows.Forms.StatusStrip()
         Me.Button5 = New System.Windows.Forms.Button()
-        Me.LblStatus = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtSampleRate
         '
         Me.txtSampleRate.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.txtSampleRate.Location = New System.Drawing.Point(165, 93)
+        Me.txtSampleRate.Location = New System.Drawing.Point(165, 90)
         Me.txtSampleRate.Name = "txtSampleRate"
         Me.txtSampleRate.Size = New System.Drawing.Size(146, 20)
         Me.txtSampleRate.TabIndex = 8
@@ -67,7 +67,7 @@ Partial Class Form1
         'txtStartAddr
         '
         Me.txtStartAddr.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.txtStartAddr.Location = New System.Drawing.Point(165, 40)
+        Me.txtStartAddr.Location = New System.Drawing.Point(165, 38)
         Me.txtStartAddr.Name = "txtStartAddr"
         Me.txtStartAddr.Size = New System.Drawing.Size(146, 20)
         Me.txtStartAddr.TabIndex = 10
@@ -75,7 +75,7 @@ Partial Class Form1
         'txtRegisterQty
         '
         Me.txtRegisterQty.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.txtRegisterQty.Location = New System.Drawing.Point(165, 66)
+        Me.txtRegisterQty.Location = New System.Drawing.Point(165, 64)
         Me.txtRegisterQty.Name = "txtRegisterQty"
         Me.txtRegisterQty.Size = New System.Drawing.Size(146, 20)
         Me.txtRegisterQty.TabIndex = 11
@@ -83,7 +83,7 @@ Partial Class Form1
         'txtSlaveID
         '
         Me.txtSlaveID.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.txtSlaveID.Location = New System.Drawing.Point(165, 120)
+        Me.txtSlaveID.Location = New System.Drawing.Point(165, 116)
         Me.txtSlaveID.Name = "txtSlaveID"
         Me.txtSlaveID.Size = New System.Drawing.Size(56, 20)
         Me.txtSlaveID.TabIndex = 12
@@ -113,7 +113,7 @@ Partial Class Form1
         'txtPortName
         '
         Me.txtPortName.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.txtPortName.Location = New System.Drawing.Point(165, 13)
+        Me.txtPortName.Location = New System.Drawing.Point(165, 12)
         Me.txtPortName.Name = "txtPortName"
         Me.txtPortName.Size = New System.Drawing.Size(146, 20)
         Me.txtPortName.TabIndex = 15
@@ -122,9 +122,9 @@ Partial Class Form1
         '
         Me.Label1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(2, 123)
+        Me.Label1.Location = New System.Drawing.Point(2, 119)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(133, 17)
+        Me.Label1.Size = New System.Drawing.Size(144, 17)
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "PLC Starting/Single Address "
         '
@@ -132,9 +132,9 @@ Partial Class Form1
         '
         Me.PortName.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.PortName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PortName.Location = New System.Drawing.Point(2, 16)
+        Me.PortName.Location = New System.Drawing.Point(2, 15)
         Me.PortName.Name = "PortName"
-        Me.PortName.Size = New System.Drawing.Size(133, 17)
+        Me.PortName.Size = New System.Drawing.Size(71, 17)
         Me.PortName.TabIndex = 17
         Me.PortName.Text = "Port Number"
         '
@@ -142,9 +142,9 @@ Partial Class Form1
         '
         Me.Label3.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(2, 43)
+        Me.Label3.Location = New System.Drawing.Point(2, 41)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(133, 17)
+        Me.Label3.Size = New System.Drawing.Size(144, 17)
         Me.Label3.TabIndex = 18
         Me.Label3.Text = "Registor StartAddress "
         '
@@ -152,9 +152,9 @@ Partial Class Form1
         '
         Me.Label4.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(2, 69)
+        Me.Label4.Location = New System.Drawing.Point(2, 67)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(133, 17)
+        Me.Label4.Size = New System.Drawing.Size(115, 17)
         Me.Label4.TabIndex = 19
         Me.Label4.Text = "Registor Total Quantity"
         '
@@ -162,9 +162,9 @@ Partial Class Form1
         '
         Me.Label5.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(2, 96)
+        Me.Label5.Location = New System.Drawing.Point(2, 93)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(112, 17)
+        Me.Label5.Size = New System.Drawing.Size(71, 17)
         Me.Label5.TabIndex = 20
         Me.Label5.Text = "Sample Rate"
         '
@@ -173,7 +173,7 @@ Partial Class Form1
         Me.Button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(12, 289)
+        Me.Button2.Location = New System.Drawing.Point(12, 324)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(146, 29)
         Me.Button2.TabIndex = 21
@@ -185,7 +185,7 @@ Partial Class Form1
         Me.Button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.Location = New System.Drawing.Point(12, 324)
+        Me.Button3.Location = New System.Drawing.Point(165, 324)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(146, 29)
         Me.Button3.TabIndex = 22
@@ -197,7 +197,7 @@ Partial Class Form1
         Me.Button4.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(164, 324)
+        Me.Button4.Location = New System.Drawing.Point(12, 289)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(146, 29)
         Me.Button4.TabIndex = 23
@@ -208,19 +208,28 @@ Partial Class Form1
         '
         Me.Label2.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(2, 150)
+        Me.Label2.Location = New System.Drawing.Point(2, 147)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(133, 17)
+        Me.Label2.Size = New System.Drawing.Size(144, 17)
         Me.Label2.TabIndex = 24
         Me.Label2.Text = "Value Write"
         '
         'Txtvalue
         '
         Me.Txtvalue.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Txtvalue.Location = New System.Drawing.Point(165, 150)
+        Me.Txtvalue.Location = New System.Drawing.Point(165, 147)
         Me.Txtvalue.Name = "Txtvalue"
         Me.Txtvalue.Size = New System.Drawing.Size(146, 20)
         Me.Txtvalue.TabIndex = 25
+        '
+        'lblStatus
+        '
+        Me.lblStatus.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.lblStatus.Location = New System.Drawing.Point(0, 428)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(800, 22)
+        Me.lblStatus.TabIndex = 26
+        Me.lblStatus.Text = "lblStatus"
         '
         'Button5
         '
@@ -234,22 +243,14 @@ Partial Class Form1
         Me.Button5.Text = "READ (D-Value)"
         Me.Button5.UseVisualStyleBackColor = False
         '
-        'LblStatus
-        '
-        Me.LblStatus.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.LblStatus.Location = New System.Drawing.Point(12, 414)
-        Me.LblStatus.Name = "LblStatus"
-        Me.LblStatus.Size = New System.Drawing.Size(763, 27)
-        Me.LblStatus.TabIndex = 29
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.LblStatus)
         Me.Controls.Add(Me.Button5)
+        Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.Txtvalue)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Button4)
@@ -293,6 +294,6 @@ Partial Class Form1
     Friend WithEvents Button4 As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents Txtvalue As TextBox
+    Friend WithEvents lblStatus As StatusStrip
     Friend WithEvents Button5 As Button
-    Friend WithEvents LblStatus As Label
 End Class

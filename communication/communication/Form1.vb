@@ -46,16 +46,16 @@ Public Class Form1
 
         Dim CRC(1) As Byte
         Dim StartLwrByte As UShort
+        Dim ReglwrByte As UShort
         Dim AndLwrByte As UShort = 255
-        Dim Reglwrbyte As UShort
         StartLwrByte = start And AndLwrByte
-        Reglwrbyte = registers And AndLwrByte
+        ReglwrByte = registers And AndLwrByte
         message(0) = address
         message(1) = type
         message(2) = CByte(CInt(start) >> 8)
         message(3) = CByte(StartLwrByte)
         message(4) = CByte(CInt(registers) >> 8)
-        message(5) = CByte(Reglwrbyte)
+        message(5) = CByte(ReglwrByte)
 
         GetCRC(message, CRC)
         message(message.Length - 2) = CRC(0)
@@ -111,17 +111,18 @@ Public Class Form1
         Dim start As UShort
         Dim IDtxt As String
         Dim IDcnt As Integer
-        Dim str As String = Nothing
+        Dim str As String = ""
+        Dim addres As Integer = 0
         IDtxt = Convert.ToString(txtSlaveID.Text)
         IDcnt = CInt(txtSlaveID.Text)
         Dim values(Convert.ToInt32(txtRegisterQty.Text) - 1) As Integer
         start = Convert.ToUInt16(txtStartAddr.Text)
         registers = Convert.ToUInt16(txtRegisterQty.Text)
-
         lstRegisterValues.Clear()
         If sp.IsOpen Then
             For j As Integer = 0 To IDcnt - 1
                 Dim v As Integer = j + 1
+
                 address = Convert.ToByte(v)
 
                 sp.DiscardOutBuffer()
@@ -130,7 +131,15 @@ Public Class Form1
                     str = "R"
                 ElseIf start >= 6000 And start < 8999 Then
                     str = "D"
+                    If start >= 6000 And start < 7000 Then
+                        addres = start - 6000
+                    ElseIf start >= 7000 And start < 8000 Then
+                        addres = start - 7000
+                    ElseIf start >= 8000 And start < 8999 Then
+                        addres = start - 8000
+                    End If
                 End If
+
                 Dim message(7) As Byte
 
                 Dim response((5 + 2 * registers) - 1) As Byte
@@ -156,8 +165,7 @@ Public Class Form1
                         values(i) = response(2 * i + 3)
                         values(i) <<= 8
                         values(i) += response(2 * i + 4)
-
-                        lstRegisterValues.AppendText(str & (CInt(message(3))) + i & " = " & values(i) & vbCrLf)
+                        lstRegisterValues.AppendText(str & addres + i & " = " & values(i) & vbCrLf)
                     Next i
 
                     modbusStatus = "Read successful"
@@ -223,7 +231,8 @@ Public Class Form1
         Dim start As UShort
         Dim IDtxt As String
         Dim IDcnt As Integer
-        Dim str As String = Nothing
+        Dim str As String = ""
+        Dim addres As Integer
         IDtxt = Convert.ToString(txtSlaveID.Text)
         IDcnt = CInt(txtSlaveID.Text)
         Dim values(Convert.ToInt32(txtRegisterQty.Text) - 1) As Integer
@@ -235,10 +244,18 @@ Public Class Form1
 
             sp.DiscardOutBuffer()
             sp.DiscardInBuffer()
+
             If start >= 0 And start < 4168 Then
                 str = "R"
             ElseIf start >= 6000 And start < 8999 Then
                 str = "D"
+                If start >= 6000 And start < 7000 Then
+                    addres = start - 6000
+                ElseIf start >= 7000 And start < 8000 Then
+                    addres = start - 7000
+                ElseIf start >= 8000 And start < 8999 Then
+                    addres = start - 8000
+                End If
             End If
 
             Dim message(7) As Byte
@@ -267,7 +284,7 @@ Public Class Form1
                     values(i) = response(2 * i + 3)
                     values(i) <<= 8
                     values(i) += response(2 * i + 4)
-                    lstRegisterValues.AppendText(str & (CInt(message(3))) + i & " = " & values(i) & vbCrLf)
+                    lstRegisterValues.AppendText(str & addres + i & " = " & values(i) & vbCrLf)
                 Next i
 
                 modbusStatus = "Read successful"
@@ -276,7 +293,7 @@ Public Class Form1
                 modbusStatus = "CRC error"
                 lstRegisterValues.AppendText("In PLC" & " " & IDcnt & " CRC error occur " & vbCrLf)
             End If
-
+            'Next j
         Else
             modbusStatus = "Serial port not open"
 
@@ -333,7 +350,6 @@ Public Class Form1
                 modbusStatus = "crc error"
                 lstRegisterValues.AppendText("in plc" & " " & idcnt & " crc error occur " & vbCrLf)
             End If
-            'next j
         Else
             modbusStatus = "serial port not open"
 
@@ -359,25 +375,27 @@ Public Class Form1
             sp.DiscardOutBuffer()
             sp.DiscardInBuffer()
 
+
+
             Dim message(7) As Byte
 
-            Dim response(8) As Byte
+                Dim response(8) As Byte
 
-            buildmessage1(address, CByte(5), start, datas, message)
+                buildmessage1(address, CByte(5), start, datas, message)
 
-            Try
-                sp.Write(message, 0, message.Length)
-                System.Threading.Thread.Sleep(50)
-                GetResponse(response)
+                Try
+                    sp.Write(message, 0, message.Length)
+                    System.Threading.Thread.Sleep(50)
+                    GetResponse(response)
                 System.Threading.Thread.Sleep(50)
 
             Catch err As InvalidOperationException
 
-                lstRegisterValues.AppendText("error in read event: no response from plc ")
+                    lstRegisterValues.AppendText("error in read event: no response from plc ")
 
-            End Try
+                End Try
 
-            lstRegisterValues.AppendText("plc " & idcnt & vbCrLf)
+                lstRegisterValues.AppendText("plc " & idcnt & vbCrLf)
 
             If CheckResponse(response) Then
                 System.Threading.Thread.Sleep(50)
@@ -388,9 +406,8 @@ Public Class Form1
                 modbusStatus = "crc error"
                 lstRegisterValues.AppendText("in plc" & " " & idcnt & " crc error occur " & vbCrLf)
             End If
-
         Else
-            modbusStatus = "serial port not open"
+                modbusStatus = "serial port not open"
 
         End If
         lblStatus.Text = modbusStatus
@@ -408,7 +425,6 @@ Public Class Form1
         start = Convert.ToUInt16(txtStartAddr.Text)
         registers = Convert.ToUInt16(Txtvalue.Text)
         address = Convert.ToByte(IDtxt)
-        'lstRegisterValues.Clear()
         If sp.IsOpen Then
 
 
@@ -458,36 +474,46 @@ Public Class Form1
         Dim start As UShort
         Dim IDtxt As String
         Dim IDcnt As Integer
+        Dim con As String
         Dim str As String = Nothing
-        Dim iba As BitArray = New BitArray(8)
+        Dim z As Integer = 0
+        Dim addres As Integer
+        Dim ba1 As BitArray = New BitArray(8)
         IDtxt = Convert.ToString(txtSlaveID.Text)
         IDcnt = CInt(txtSlaveID.Text)
         Dim values(Convert.ToInt32(txtRegisterQty.Text) - 1) As Integer
         start = Convert.ToUInt16(txtStartAddr.Text)
         registers = Convert.ToUInt16(txtRegisterQty.Text)
-        Dim quantity As Integer = CInt(txtRegisterQty.Text)
         address = Convert.ToByte(IDtxt)
         lstRegisterValues.Clear()
         If sp.IsOpen Then
 
+
+
             sp.DiscardOutBuffer()
             sp.DiscardInBuffer()
 
-            If start >= 0 And start < 256 Then
-                str = "Y"
-            ElseIf start >= 1000 And start < 1256 Then
-                str = "X"
+            If start >= 6000 And start < 7000 Then
+                str = "S"
+                addres = start - 6000
             ElseIf start >= 2000 And start < 4002 Then
                 str = "M"
-            ElseIf start >= 6000 And start < 7000 Then
-                str = "S"
-
+                If start >= 2000 And start < 3000 Then
+                    addres = start - 2000
+                ElseIf start >= 3000 And start < 4000 Then
+                    addres = start - 3000
+                ElseIf start >= 4000 And start < 4002 Then
+                    addres = start - 4000
+                End If
+            ElseIf start >= 1000 And start < 1256 Then
+                str = "X"
+                addres = start - 1000
+            ElseIf start >= 0 And start < 256 Then
+                str = "Y"
             End If
-
             Dim message(7) As Byte
 
-            Dim response((5 + ((registers + 7) \ 8)) - 1) As Byte
-
+            Dim response(5 + ((registers + 7) \ 8)) As Byte
 
             BuildMessage(address, CByte(1), start, registers, message)
 
@@ -506,15 +532,21 @@ Public Class Form1
             lstRegisterValues.AppendText("PLC " & IDtxt & vbCrLf)
             If CheckResponse(response) Then
                 System.Threading.Thread.Sleep(100)
-                For i As Integer = 0 To ((quantity + 7) \ 8) - 1
+                For i As Integer = 0 To ((registers + 7) \ 8) - 1
                     values(i) = response(i + 3)
                     Dim a() As Byte = {values(i)}
-                    iba = New BitArray(a)
-                    For j As Integer = 0 To iba.Count - 1
-                        If iba(j) = True Then
-                            lstRegisterValues.AppendText(str & (CInt(message(3))) + j & " = " & "ON" & vbCrLf)
+                    ba1 = New BitArray(a)
+                    For j As Integer = 0 To ba1.Count - 1
+                        If ba1(j) = True Then
+                            con = "ON"
                         Else
-                            lstRegisterValues.AppendText(str & (CInt(message(3))) + j & " = " & "OFF" & vbCrLf)
+                            con = "OFF"
+                        End If
+
+                        lstRegisterValues.AppendText(str & addres + z & " = " & con & vbCrLf)
+                        z = z + 1
+                        If z >= registers Then
+                            Exit For
                         End If
                     Next j
 
